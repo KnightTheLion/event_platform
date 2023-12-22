@@ -1,12 +1,21 @@
-import { getEventById } from "@/lib/actions/event.actions";
+import Collection from "@/components/shared/Collection";
+import { getAllEvents, getEventById, getRelatedEventsByCategory } from "@/lib/actions/event.actions";
 import { formatDateTime } from "@/lib/utils";
 import { SearchParamProps } from "@/types";
 import Image from "next/image";
 import React from "react";
 
-const EventDetails = async ({ params: { id } }: SearchParamProps) => {
+const EventDetails = async ({ params: { id }, searchParams }: SearchParamProps) => {
   const event = await getEventById(id);
+
+  const relatedEvents = await getRelatedEventsByCategory({
+    categoryId: event.category._id,
+    eventId: event._id,
+    page: searchParams.page as string,
+  })
+
   return (
+    <>
     <section className="flex justify-center bg-primary-50 bg-dotted-pattern bg-contain">
       <div className="grid grid-cols-1 md:grid-cols-2 2xl:max-w-7xl">
         <div className="max-w-full p-4">
@@ -15,7 +24,7 @@ const EventDetails = async ({ params: { id } }: SearchParamProps) => {
             alt="hero image"
             width={1000}
             height={1000}
-            className="h-full min-h-[300px] object-contain object-center"
+            className="h-full min-h-[300px] object-contain object-center rounded-2xl"
           />
         </div>
         <div className="flex w-full flex-col gap-8 p-5 md:p-10">
@@ -84,6 +93,20 @@ const EventDetails = async ({ params: { id } }: SearchParamProps) => {
         </div>
       </div>
     </section>
+    {/*EVENTS WITH SAME CATEGORY */}
+    <section className="wrapper my-8 flex flex-col gap-8 md:gap-12">
+      <h2 className="h2-bold">Related Events</h2>
+      <Collection 
+        data={relatedEvents?.data}
+        emptyTitle="No Events Found"
+        emptyStateSubtext='Come back later.'
+        collectionType='All_Events'
+        limit={6}
+        page={1}
+        totalPages={2}
+        />
+    </section>
+    </>
   );
 };
 
