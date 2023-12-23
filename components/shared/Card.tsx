@@ -3,7 +3,6 @@ import { formatDateTime } from "@/lib/utils";
 import { auth } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
-import { format } from "path";
 import React from "react";
 import { DeleteConfirmation } from "./DeleteConfirmation";
 
