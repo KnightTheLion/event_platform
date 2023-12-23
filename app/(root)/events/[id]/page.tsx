@@ -1,5 +1,5 @@
 import Collection from "@/components/shared/Collection";
-import { getAllEvents, getEventById, getRelatedEventsByCategory } from "@/lib/actions/event.actions";
+import {  getEventById, getRelatedEventsByCategory } from "@/lib/actions/event.actions";
 import { formatDateTime } from "@/lib/utils";
 import { SearchParamProps } from "@/types";
 import Image from "next/image";
