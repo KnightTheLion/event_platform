@@ -26,13 +26,15 @@ export const formatDateTime = (dateString: Date) => {
     day: 'numeric', // numeric day of the month (e.g., '25')
   }
 
-  const setTimeZone =  Intl.DateTimeFormat().resolvedOptions().timeZone;
+  //const setTimeZone =  Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+  
   
   const timeOptions: Intl.DateTimeFormatOptions = {
     hour: 'numeric', // numeric hour (e.g., '8')
     minute: 'numeric', // numeric minute (e.g., '30')
     hour12: true, // use 12-hour clock (true) or 24-hour clock (false)
-    timeZone: `America/New_York`, 
+    timeZone: `${Intl.DateTimeFormat().resolvedOptions().timeZone}`, 
   }
 
 
