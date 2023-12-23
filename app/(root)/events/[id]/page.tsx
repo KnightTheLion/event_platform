@@ -14,12 +14,6 @@ const EventDetails = async ({ params: { id }, searchParams }: SearchParamProps) 
     page: searchParams.page as string,
   })
 
-  const convertUTCtoLocal = (utcDateTimeString: string) => {
-    const utcDateTime = new Date(utcDateTimeString);
-    const localDateTime = new Date(utcDateTime.toLocaleString());
-    return localDateTime;
-  };
-
   return (
     <>
     <section className="flex justify-center bg-primary-50 bg-dotted-pattern bg-contain">
@@ -68,12 +62,13 @@ const EventDetails = async ({ params: { id }, searchParams }: SearchParamProps) 
               />
               <div className="p-medium-16 lg:p-regular-20 flex flex-wrap items-center">
                 <p>
-                  {convertUTCtoLocal(event.startDateTime).toLocaleDateString()} -{" "}
-                  {convertUTCtoLocal(event.startDateTime).toLocaleTimeString()}
+                  {formatDateTime(event.startDateTime).dateOnly} -{" "}
+                  {formatDateTime(event.startDateTime).timeOnly}
                 </p>
+                <p className="mx-2">|</p>
                 <p>
-                  {convertUTCtoLocal(event.endDateTime).toLocaleDateString()} -{" "}
-                  {convertUTCtoLocal(event.endDateTime).toLocaleTimeString()}
+                  {formatDateTime(event.endDateTime).dateOnly} -{" "}
+                  {formatDateTime(event.endDateTime).timeOnly}
                 </p>
               </div>
             </div>
